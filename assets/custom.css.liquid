@@ -234,3 +234,19 @@
   }
 }
 
+@media (min-width: 1024px) {
+  /* Rotate arrow for "Categorii" only when menu is open */
+  .sf-menu-item-parent[data-mega="categorii"] > a .sf-menu__arrow svg {
+    transition: transform 0.3s ease;
+    transform: rotate(0deg);
+  }
+
+  .sf-menu-item-parent[data-mega="categorii"]:hover > a .sf-menu__arrow svg {
+    transform: rotate(0deg) !important;
+  }
+
+  .sf-menu-item-parent[data-mega="categorii"].sf-menu-item--active > a .sf-menu__arrow svg {
+    transform: rotate(180deg) !important;
+  }
+}
+
