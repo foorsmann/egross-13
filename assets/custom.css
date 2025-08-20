@@ -226,9 +226,10 @@
 }
 
 @media (min-width: 1024px) {
-  /* Rounded bottom corners on scrollable Categorii mega menu panel */
+  /* Rounded bottom corners and extra bottom padding on scrollable Categorii mega menu panel */
   .sf-header .sf-menu-item-parent[data-mega="categorii"] .sf-menu-submenu__content {
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;
+    padding-bottom: 2rem;
   }
 }
