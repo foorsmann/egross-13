@@ -10255,3 +10255,23 @@ initTheme();
 }();
 /******/ })()
 ;
+
+(function(){
+  const mql=window.matchMedia('(min-width:1024px)');
+  const header=document.querySelector('.header__wrapper');
+  const trigger=document.querySelector('.sf-menu-item-parent[data-mega="categorii"]');
+  if(!header||!trigger) return;
+
+  function setMegaMaxHeight(){
+    if(!mql.matches) return;
+    const bottom=header.getBoundingClientRect().bottom||0;
+    const padding=24;
+    const maxH=Math.max(240,window.innerHeight-Math.ceil(bottom)-padding);
+    document.documentElement.style.setProperty('--eg-mega-max-h',`${maxH}px`);
+  }
+
+  ['resize','orientationchange'].forEach(evt=>window.addEventListener(evt,setMegaMaxHeight,{passive:true}));
+  document.addEventListener('DOMContentLoaded',setMegaMaxHeight);
+  trigger.addEventListener('mouseenter',setMegaMaxHeight);
+  trigger.addEventListener('focusin',setMegaMaxHeight);
+})();
