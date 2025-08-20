@@ -274,7 +274,7 @@
               "show_agree_checkbox": true,
               "width": "25%",
               "order_first": true,
-              "open_default": true
+              "open_default": false
             }
           },
           "c623bcc5-6445-4c76-ad7e-5e61d8510105": {
