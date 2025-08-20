@@ -7,13 +7,21 @@
     margin:0 auto;
   }
   .sf-header .sf-menu-item-parent[data-mega="categorii"] .sf-menu-submenu__content{
-    max-height:calc(100vh - 140px);
+    max-height:var(--eg-mega-max-h,calc(100vh - 140px));
     overflow-y:auto;
     overscroll-behavior:contain;
     padding:2rem;
+    padding-bottom:24px;
     border:1px solid #e5e5e5;
     box-shadow:0 6px 12px rgba(0,0,0,.08);
     background:#fff;
+    box-sizing:border-box;
+    scrollbar-gutter:stable both-edges;
+  }
+  .sf-header .sf-menu-item-parent[data-mega="categorii"] .sf-menu__submenu,
+  .sf-header .sf-menu-item-parent[data-mega="categorii"] .sf-menu__desktop-sub-menu,
+  .sf-header .sf-menu-item-parent[data-mega="categorii"] .sf-menu__inner{
+    overflow:visible;
   }
   .sf-header .sf-menu-item-parent[data-mega="categorii"] .sf-menu-submenu__items{
     display:grid;
@@ -42,5 +50,12 @@
   .sf-header .sf-menu-item-parent[data-mega="categorii"] .sf__sub-menu-column a:focus{
     color:var(--color-sub-text, #666);
     text-decoration:underline;
+  }
+  .sf-header.sf-mega-active .sf-search-form{
+    flex:0 0 auto;
+    min-width:var(--eg-search-min-w,420px);
+    opacity:1;
+    visibility:visible;
+    transform:none;
   }
 }
