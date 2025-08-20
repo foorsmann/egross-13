@@ -208,7 +208,8 @@
     flex-shrink: 0;
     min-width: var(--search-min, 260px);
     position: relative;
-    z-index: 1001;
+    /* Ensure search bar stays above mega menu */
+    z-index: 1100;
   }
   .sf-header.mega-open {
     overflow: visible;
@@ -221,5 +222,13 @@
   .sf-header:not(.mega-open).sf-mega-active .sf-search-form {
     flex: 0 0 auto;
     width: auto;
+  }
+}
+
+@media (min-width: 1024px) {
+  /* Rounded bottom corners on scrollable Categorii mega menu panel */
+  .sf-header .sf-menu-item-parent[data-mega="categorii"] .sf-menu-submenu__content {
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
   }
 }
