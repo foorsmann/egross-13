@@ -201,3 +201,25 @@
     display: none;
   }
 }
+
+@media (min-width: 1024px) {
+  /* keep header search visible when mega menu opens via click */
+  .sf-header .sf-search-form {
+    flex-shrink: 0;
+    min-width: var(--search-min, 260px);
+    position: relative;
+    z-index: 1001;
+  }
+  .sf-header.mega-open {
+    overflow: visible;
+  }
+  .sf-header.mega-open .sf-search-form {
+    opacity: 1;
+    visibility: visible;
+    width: auto;
+  }
+  .sf-header:not(.mega-open).sf-mega-active .sf-search-form {
+    flex: 0 0 auto;
+    width: auto;
+  }
+}
