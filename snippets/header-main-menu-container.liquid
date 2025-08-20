@@ -259,7 +259,7 @@
                             <div class="sf-menu__inner">
                                 <div class="{% if is_mega %}{{ dropdown_container | default: 'container' }}{% endif %} mx-auto{% if dropdown_container == 'w-full' %} px-5{% endif %}">
                                     <div class="sf-menu-submenu__content{% if stretch_width == true %} sf-menu-submenu--stretch-width{% endif %} flex{% if is_mega == false %} p-4 {% else %} py-12{% endif %}">
-                                        <ul class="sf-menu-submenu__items flex {% if is_mega == false %} flex-col w-full{% else %} -mx-2{% if stretch_width == false and block_type != blank %} w-2/3{% else %} w-full{% endif %}{% endif %}">
+                                        <ul class="sf-menu-submenu__items flex {% if is_mega == false %} flex-col w-full{% else %} px-2{% if stretch_width == false and block_type != blank %} w-2/3{% else %} w-full{% endif %}{% endif %}">
                                             {% if title_handle == 'categorii' %}
                                                 {% assign utility_handles = 'promotii,lichidare-de-stoc,toate-produsele,toate-categoriile' | split: ',' %}
                                                 {% capture utility_column %}{% endcapture %}
@@ -270,7 +270,7 @@
                                                     {% if utility_handles contains h %}
                                                         {% capture utility_column %}
                                                             {{ utility_column }}
-                                                            <li class="list-none sf__menu-item-level2 mb-4" data-utility="true">
+                                                            <li class="list-none sf__menu-item-level2 px-2 mb-4" data-utility="true">
                                                                 <a href="{{ childlink.url }}" class="sf__sub-menu-link2 whitespace-normal block sf-menu-submenu__title">
                                                                     {{ childlink.title }}
                                                                 </a>
@@ -279,7 +279,7 @@
                                                         {% continue %}
                                                     {% endif %}
                                                 {% endif %}
-                                                <li class="list-none sf__menu-item-level2 {% if is_mega %} w-1/2 xl:w-1/3 2xl:w-1/4 mb-4{% else %} w-full leading-9{% endif %}{% if stretch_width == true %} min-w-[200px] pr-2{% endif %}">
+                                                <li class="list-none sf__menu-item-level2 px-2 {% if is_mega %} w-1/2 xl:w-1/3 2xl:w-1/4 mb-4{% else %} w-full leading-9{% endif %}{% if stretch_width == true %} min-w-[200px] pr-2{% endif %}">
                                                     <a href="{{ childlink.url }}" class="sf__sub-menu-link2 whitespace-normal block{% if is_mega %} sf-menu-submenu__title{% else %} sf-sub-menu__link{% endif %}">{{ childlink.title }}</a>
                                                     {% if childlink.links != blank %}
                                                         <div class="sf__sub-menu-column mt-4">
@@ -297,7 +297,7 @@
                                                 </li>
                                             {% endfor %}
                                             {% if title_handle == 'categorii' and utility_column != '' %}
-                                                <li class="list-none sf__menu-item-level2 w-1/2 xl:w-1/3 2xl:w-1/4 mb-4 is-utilities">
+                                                <li class="list-none sf__menu-item-level2 px-2 w-1/2 xl:w-1/3 2xl:w-1/4 mb-4 is-utilities">
                                                     <ul class="sf-menu-submenu__items--utilities m-0 p-0 list-none">
                                                         {{ utility_column }}
                                                     </ul>

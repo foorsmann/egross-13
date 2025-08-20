@@ -53,3 +53,8 @@
     width:auto;
   }
 }
+
+.sf-menu-submenu__content,
+.sf-menu-submenu__items {
+  box-sizing: border-box;
+}
