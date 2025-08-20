@@ -10277,7 +10277,18 @@ initTheme();
 
   ['resize','orientationchange'].forEach(evt=>window.addEventListener(evt,setMegaMaxHeight,{passive:true}));
   document.addEventListener('DOMContentLoaded',setMegaMaxHeight);
-  li.addEventListener('focusin',setMegaMaxHeight);
+  li.addEventListener('focusin',e=>{
+    if(!mql.matches) return;
+    if(!li.classList.contains('sf-menu-item--active')) e.stopImmediatePropagation();
+    setMegaMaxHeight();
+  },true);
+
+  li.addEventListener('mouseenter',e=>{
+    if(!mql.matches) return;
+    if(!li.classList.contains('sf-menu-item--active')) e.stopImmediatePropagation();
+  },true);
+
+  li.addEventListener('mouseleave',()=>{if(!mql.matches) return;close();});
 
   a.addEventListener('click',e=>{
     if(!mql.matches) return;
