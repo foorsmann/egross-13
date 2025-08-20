@@ -53,3 +53,12 @@
     width:auto;
   }
 }
+.container,
+.sf-menu__submenu {
+  max-width: var(--container-max);
+}
+
+.sf-menu__submenu {
+  overflow-x: hidden;
+  width: 100%;
+}
