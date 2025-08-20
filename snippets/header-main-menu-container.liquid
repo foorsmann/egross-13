@@ -249,7 +249,7 @@
                     </a>
                     {% if link.links != blank %}
                         <div
-                            class="sf-menu__submenu sf-menu__desktop-sub-menu pointer-events-none absolute z-50 inset-x-0{% if is_mega == false %} sf-menu__dropdown min-w-max bg-white{% else %}{% endif %}"
+                            class="sf-menu__submenu sf-menu__desktop-sub-menu pointer-events-none absolute z-50 inset-x-0{% if is_mega == false %} sf-menu__dropdown min-w-max bg-white{% else %}{% endif %}{% if title_handle == 'categorii' %} ebay-mega{% endif %}"
                             style="--total-columns: {{ link.links.size }}"
                         >
                             <div class="sf-menu__inner">
