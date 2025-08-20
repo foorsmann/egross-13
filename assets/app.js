@@ -10275,3 +10275,64 @@ initTheme();
   trigger.addEventListener('mouseenter',setMegaMaxHeight);
   trigger.addEventListener('focusin',setMegaMaxHeight);
 })();
+
+// Handle mega menu for "Categorii" via click instead of hover
+(function(){
+  const mql=window.matchMedia('(min-width:1024px)');
+  if(!mql.matches) return; // only run on desktop
+  const header=document.querySelector('.sf-header');
+  const trigger=document.querySelector('.sf-menu-item-parent[data-mega="categorii"]');
+  if(!header||!trigger) return;
+  const item=trigger.closest('.sf-menu-item');
+  const panel=item?item.querySelector('.sf-menu__submenu'):null;
+  let isOpen=false;
+
+  // Prevent default hover handlers from SiteNav
+  const stopHover=e=>e.stopImmediatePropagation();
+  item.addEventListener('mouseenter',stopHover,true);
+  item.addEventListener('mouseleave',stopHover,true);
+
+  // Open/close helpers
+  const openMenu=()=>{
+    isOpen=true;
+    header.classList.add('sf-mega-active');
+    item.classList.add('sf-menu-item--active');
+  };
+  const closeMenu=()=>{
+    isOpen=false;
+    header.classList.remove('sf-mega-active');
+    item.classList.remove('sf-menu-item--active');
+  };
+
+  // Toggle on click of trigger
+  trigger.addEventListener('click',e=>{
+    if(!mql.matches) return;
+    e.preventDefault();
+    isOpen?closeMenu():openMenu();
+  });
+
+  // Close when mouse leaves both trigger and panel
+  const handleLeave=e=>{
+    const rel=e.relatedTarget;
+    if(!trigger.contains(rel)&&!(panel&&panel.contains(rel))){
+      closeMenu();
+    }
+  };
+  trigger.addEventListener('mouseleave',handleLeave);
+  panel&&panel.addEventListener('mouseleave',handleLeave);
+
+  // Accessibility: close on Escape key
+  document.addEventListener('keydown',e=>{
+    if(e.key==='Escape'&&isOpen) closeMenu();
+  });
+
+  // Close if focus leaves both trigger and panel
+  const handleFocusOut=e=>{
+    const rel=e.relatedTarget;
+    if(!trigger.contains(rel)&&!(panel&&panel.contains(rel))){
+      closeMenu();
+    }
+  };
+  trigger.addEventListener('focusout',handleFocusOut);
+  panel&&panel.addEventListener('focusout',handleFocusOut);
+})();

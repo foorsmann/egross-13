@@ -95,6 +95,8 @@
 /* Search form custom styling */
 .sf-search-form {
   height: 46px;
+  position: relative;
+  z-index: 1000; /* ensure search stays above mega menu */
 }
 
 /* limit border styling to the search form */
