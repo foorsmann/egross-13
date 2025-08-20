@@ -49,7 +49,7 @@
     "color_footer_bottom_bg_mb": "#212121",
     "color_border": "#dedede",
     "img_overlay_opacity": 20,
-    "tooltip_background_color": "#fff",
+    "tooltip_background_color": "#000000",
     "type_base_font": "montserrat_n5",
     "use_custom_font_body": false,
     "custom_body_font": "https://cdn.shopify.com/s/files/1/0561/2742/2636/files/Jost-Regular.ttf?v=1618297125@400\nhttps://cdn.shopify.com/s/files/1/0561/2742/2636/files/Jost-Medium.ttf?v=1618297125@500\nhttps://cdn.shopify.com/s/files/1/0561/2742/2636/files/Jost-SemiBold.ttf?v=1618297125@600",
