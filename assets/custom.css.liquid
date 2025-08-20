@@ -250,3 +250,30 @@
   }
 }
 
+@media (min-width: 1024px) {
+  /* Mega menu columns: prevent overflow and enforce grid layout */
+  .sf-menu-submenu__content,
+  .sf-menu-submenu__items,
+  .sf-menu-submenu__items > li {
+    box-sizing: border-box;
+  }
+
+  .sf-menu-submenu__items {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(var(--column-width, 220px), 1fr));
+    gap: 1.5rem;
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .sf-menu-submenu__items > li {
+    width: auto !important;
+    min-width: 0;
+  }
+
+  .sf-menu__submenu {
+    width: 100%;
+    overflow-x: hidden;
+  }
+}
+
