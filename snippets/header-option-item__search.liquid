@@ -2,7 +2,7 @@
 
 {% unless search_display == 'hide' %}
     <div
-      class="sf-search-form flex items-center{% if icon_left == true %} pr-4{% endif %} {{ box_size }} {%- if search_display == 'show_full' -%} sf-search-form--full border border-color-border hover:border-gray-400 rounded-md{%- endif -%}"
+      class="sf-search-form flex items-center flex-shrink-0 w-[220px]{% if icon_left == true %} pr-4{% endif %} {{ box_size }} {%- if search_display == 'show_full' -%} sf-search-form--full border border-color-border hover:border-gray-400 rounded-md{%- endif -%}"
       data-open-search-popup
     >
       {% if icon_left == true %}

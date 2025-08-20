@@ -52,4 +52,6 @@
     flex:0 0 auto;
     width:auto;
   }
+  .sf-search-form{flex-shrink:0;min-width:220px;}
+  .sf-header .sf-menu-item:hover~.sf-search-form{opacity:1;width:auto;}
 }
