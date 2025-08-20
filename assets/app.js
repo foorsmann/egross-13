@@ -10264,77 +10264,82 @@ initTheme();
 
 (function(){
   const mql=window.matchMedia('(min-width:1024px)');
-  const header=document.querySelector('.header__wrapper');
-  const trigger=document.querySelector('.sf-menu-item-parent[data-mega="categorii"]');
-  if(!header||!trigger) return;
+  document.querySelectorAll('.sf-menu-item-parent[data-mega="categorii"]').forEach(trigger=>{
+    const header=trigger.closest('.sf-header');
+    if(!header) return;
 
-  function setMegaMaxHeight(){
-    if(!mql.matches) return;
-    const bottom=header.getBoundingClientRect().bottom||0;
-    const padding=24;
-    const maxH=Math.max(240,window.innerHeight-Math.ceil(bottom)-padding);
-    document.documentElement.style.setProperty('--eg-mega-max-h',`${maxH}px`);
-  }
+    function setMegaMaxHeight(){
+      if(!mql.matches) return;
+      const bottom=header.getBoundingClientRect().bottom||0;
+      const padding=24;
+      const maxH=Math.max(240,window.innerHeight-Math.ceil(bottom)-padding);
+      document.documentElement.style.setProperty('--eg-mega-max-h',`${maxH}px`);
+    }
 
-  ['resize','orientationchange'].forEach(evt=>window.addEventListener(evt,setMegaMaxHeight,{passive:true}));
-  document.addEventListener('DOMContentLoaded',setMegaMaxHeight);
-  trigger.addEventListener('mouseenter',setMegaMaxHeight);
-  trigger.addEventListener('focusin',setMegaMaxHeight);
+    ['resize','orientationchange'].forEach(evt=>window.addEventListener(evt,setMegaMaxHeight,{passive:true}));
+    document.addEventListener('DOMContentLoaded',setMegaMaxHeight);
+    trigger.addEventListener('mouseenter',setMegaMaxHeight);
+    trigger.addEventListener('focusin',setMegaMaxHeight);
+  });
 })();
 
 // Handle mega menu for "Categorii" via click instead of hover
 (function(){
   const mql=window.matchMedia('(min-width:1024px)');
   if(!mql.matches) return; // only run on desktop
-  const header=document.querySelector('.sf-header');
-  const trigger=document.querySelector('.sf-menu-item-parent[data-mega="categorii"]');
-  if(!header||!trigger) return;
-  const item=trigger.closest('.sf-menu-item');
-  const panel=item?item.querySelector('.sf-menu__submenu'):null;
-  let isOpen=false;
-  let closeTimer;
+  document.querySelectorAll('.sf-menu-item-parent[data-mega="categorii"]').forEach(trigger=>{
+    const header=trigger.closest('.sf-header');
+    const item=trigger.closest('.sf-menu-item');
+    const panel=item?item.querySelector('.sf-menu__submenu'):null;
+    if(!header||!item||!panel) return;
 
-  // Open/close helpers
-  const openMenu=()=>{
-    isOpen=true;
-    header.classList.add('mega-open','sf-mega-active');
-    document.querySelectorAll('.sf-menu-item--active').forEach(el=>{el!==item&&el.classList.remove('sf-menu-item--active');});
-    item.classList.add('sf-menu-item--active');
-  };
-  const closeMenu=()=>{
-    isOpen=false;
-    header.classList.remove('mega-open','sf-mega-active');
-    item.classList.remove('sf-menu-item--active');
-  };
+    item.classList.add('is-categorii');
 
-  // Toggle on click of trigger
-  trigger.addEventListener('click',e=>{
-    if(!mql.matches) return;
-    e.preventDefault();
-    isOpen?closeMenu():openMenu();
+    let isOpen=false;
+    let closeTimer;
+
+    // Open/close helpers
+    const openMenu=()=>{
+      isOpen=true;
+      header.classList.add('mega-open','sf-mega-active');
+      header.querySelectorAll('.sf-menu-item--active').forEach(el=>{el!==item&&el.classList.remove('sf-menu-item--active');});
+      item.classList.add('sf-menu-item--active');
+    };
+    const closeMenu=()=>{
+      isOpen=false;
+      header.classList.remove('mega-open','sf-mega-active');
+      item.classList.remove('sf-menu-item--active');
+    };
+
+    // Toggle on click of trigger
+    trigger.addEventListener('click',e=>{
+      if(!mql.matches) return;
+      e.preventDefault();
+      isOpen?closeMenu():openMenu();
+    });
+
+    // Debounced close when mouse leaves both trigger and panel
+    const startClose=()=>{
+      closeTimer=setTimeout(()=>{
+        if(!trigger.matches(':hover')&&!(panel&&panel.matches(':hover'))){
+          closeMenu();
+        }
+      },120);
+    };
+    const cancelClose=()=>clearTimeout(closeTimer);
+    [trigger,panel].forEach(el=>{el&&el.addEventListener('mouseenter',cancelClose);});
+    [trigger,panel].forEach(el=>{el&&el.addEventListener('mouseleave',startClose);});
+
+    // Close when clicking outside trigger or panel
+    document.addEventListener('pointerdown',e=>{
+      if(!isOpen) return;
+      if(trigger.contains(e.target)) return;
+      if(panel&&panel.contains(e.target)) return;
+      closeMenu();
+    });
+
+    // Close on Escape key or when leaving desktop breakpoint
+    document.addEventListener('keydown',e=>{if(e.key==='Escape')closeMenu();});
+    mql.addEventListener('change',e=>{if(!e.matches)closeMenu();});
   });
-
-  // Debounced close when mouse leaves both trigger and panel
-  const startClose=()=>{
-    closeTimer=setTimeout(()=>{
-      if(!trigger.matches(':hover')&&!(panel&&panel.matches(':hover'))){
-        closeMenu();
-      }
-    },120);
-  };
-  const cancelClose=()=>clearTimeout(closeTimer);
-  [trigger,panel].forEach(el=>{el&&el.addEventListener('mouseenter',cancelClose);});
-  [trigger,panel].forEach(el=>{el&&el.addEventListener('mouseleave',startClose);});
-
-  // Close when clicking outside trigger or panel
-  document.addEventListener('pointerdown',e=>{
-    if(!isOpen) return;
-    if(trigger.contains(e.target)) return;
-    if(panel&&panel.contains(e.target)) return;
-    closeMenu();
-  });
-
-  // Close on Escape key or when leaving desktop breakpoint
-  document.addEventListener('keydown',e=>{if(e.key==='Escape')closeMenu();});
-  mql.addEventListener('change',e=>{if(!e.matches)closeMenu();});
 })();
