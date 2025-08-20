@@ -10307,10 +10307,15 @@ initTheme();
   };
 
   // Toggle on click of trigger
-  trigger.addEventListener('click',e=>{
-    if(!mql.matches) return;
-    e.preventDefault();
-    isOpen?closeMenu():openMenu();
+  trigger.addEventListener('click', e => {
+    if (!mql.matches) return;
+    if (!isOpen) {
+      e.preventDefault();
+      openMenu();
+    } else {
+      // Allow navigation on second click while ensuring menu state resets
+      closeMenu();
+    }
   });
 
   // Debounced close when mouse leaves both trigger and panel
