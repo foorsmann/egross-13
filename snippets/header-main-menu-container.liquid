@@ -20,6 +20,10 @@
       
               assign title_handle = link.title | handleize
               assign has_mega_item = false
+              assign mega_attr = ''
+              if title_handle == 'categorii'
+                assign mega_attr = 'data-mega="categorii"'
+              endif
             %}
             {% for block in section.blocks %}
                 {% liquid
@@ -239,7 +243,7 @@
             {% endif %}
     
             {% if link.links != blank %}
-                <li class="{{ li_class }} sf__menu-item-level1 sf-menu-item-parent{% if is_mega %} sf-menu-item--mega{% endif %}" data-index="{{ forloop.index0 }}">
+                <li class="{{ li_class }} sf__menu-item-level1 sf-menu-item-parent{% if is_mega %} sf-menu-item--mega{% endif %}" data-index="{{ forloop.index0 }}" {{ mega_attr }}>
                     <a href="{{ link.url }}" class="{{ box_size }} sf__sub-menu-link1 flex items-center sf__parent-item{% if section.settings.uppercase_parent_level %} uppercase{% endif %}">{{ link.title }}
                         <span class="ml-2 sf-menu__arrow">
                             <svg class="w-2 h-2" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
@@ -287,7 +291,7 @@
                     {% endif %}
                 </li>
             {% else %}
-                <li class="{{ li_class }} sf-menu-item-parent{% if is_mega %} sf-menu-item--mega{% endif %}" data-index="{{ forloop.index0 }}">
+                <li class="{{ li_class }} sf-menu-item-parent{% if is_mega %} sf-menu-item--mega{% endif %}" data-index="{{ forloop.index0 }}" {{ mega_attr }}>
                     <a href="{{ link.url }}" class="{{ box_size }} flex items-center sf__parent-item{% if section.settings.uppercase_parent_level %} uppercase{% endif %}">
                         {{ link.title }}
                         {% if is_mega %}
