@@ -203,32 +203,34 @@
   }
 }
 
-  @media (min-width: 1024px) {
-    /* keep header search visible when mega menu opens via click */
-    .sf-header .sf-search-form {
-      flex-shrink: 0;
-      min-width: var(--search-min, 260px);
-      position: relative;
-      /* Ensure search bar stays above mega menu */
-      z-index: 1100;
-    }
-    .sf-header.mega-open {
-      overflow: visible;
-    }
-    .sf-header.mega-open .sf-search-form {
-      opacity: 1;
-      visibility: visible;
-      width: auto;
-    }
-    .sf-header:not(.mega-open).sf-mega-active .sf-search-form {
-      flex: 0 0 auto;
-      width: auto;
-    }
+@media (min-width: 1024px) {
+  /* keep header search visible when mega menu opens via click */
+  .sf-header .sf-search-form {
+    flex-shrink: 0;
+    min-width: var(--search-min, 260px);
+    position: relative;
+    /* Ensure search bar stays above mega menu */
+    z-index: 1100;
   }
-  @media (min-width: 1024px) {
-    /* Rounded bottom corners on scrollable Categorii mega menu panel */
-    .sf-header .sf-menu-item-parent[data-mega="categorii"] .sf-menu-submenu__content {
-      border-bottom-left-radius: 5px;
-      border-bottom-right-radius: 5px;
-    }
+  .sf-header.mega-open {
+    overflow: visible;
   }
+  .sf-header.mega-open .sf-search-form {
+    opacity: 1;
+    visibility: visible;
+    width: auto;
+  }
+  .sf-header:not(.mega-open).sf-mega-active .sf-search-form {
+    flex: 0 0 auto;
+    width: auto;
+  }
+}
+
+@media (min-width: 1024px) {
+  /* Rounded bottom corners on scrollable Categorii mega menu panel */
+  .sf-header .sf-menu-item-parent[data-mega="categorii"] .sf-menu-submenu__content {
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+  }
+}
+
