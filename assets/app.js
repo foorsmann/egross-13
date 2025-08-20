@@ -3361,6 +3361,8 @@ class SiteNav {
 
     _defineProperty(this, "attachEvents", () => {
       this.domNodes.menuItems.forEach((menuItem, index) => {
+        const isCategorii = !!menuItem.querySelector('.sf-menu-item-parent[data-mega="categorii"]');
+        if (isCategorii) return; // skip hover handlers for "Categorii"
         menuItem.addEventListener('mouseenter', evt => this.onMenuItemEnter(evt, index));
         menuItem.addEventListener('mouseleave', evt => this.onMenuItemLeave(evt, index));
       });
@@ -3372,9 +3374,10 @@ class SiteNav {
     });
 
     _defineProperty(this, "onMenuItemEnter", (evt, index) => {
-      const {
-        target
-      } = evt;
+      if (this.container?.classList.contains('mega-open')) return;
+      const isCategorii = evt.currentTarget?.querySelector?.('.sf-menu-item-parent[data-mega="categorii"]');
+      if (isCategorii) return; // backup guard for "Categorii"
+      const { target } = evt;
       if (target.classList.contains('sf-menu-item--no-mega')) return;
       clearTimeout(this.timeoutLeave);
       this.activeIndex = Number(target.dataset?.index);
@@ -3398,6 +3401,9 @@ class SiteNav {
     });
 
     _defineProperty(this, "onMenuItemLeave", (evt, index) => {
+      if (this.container?.classList.contains('mega-open')) return;
+      const isCategorii = evt.currentTarget?.querySelector?.('.sf-menu-item-parent[data-mega="categorii"]');
+      if (isCategorii) return; // backup guard for "Categorii"
       // console.log(evt, 'leave')
       this.activeIndex = -1;
       this.lastActiveIndex = index;
@@ -10286,21 +10292,18 @@ initTheme();
   const item=trigger.closest('.sf-menu-item');
   const panel=item?item.querySelector('.sf-menu__submenu'):null;
   let isOpen=false;
-
-  // Prevent default hover handlers from SiteNav
-  const stopHover=e=>e.stopImmediatePropagation();
-  item.addEventListener('mouseenter',stopHover,true);
-  item.addEventListener('mouseleave',stopHover,true);
+  let closeTimer;
 
   // Open/close helpers
   const openMenu=()=>{
     isOpen=true;
-    header.classList.add('sf-mega-active');
+    header.classList.add('mega-open','sf-mega-active');
+    document.querySelectorAll('.sf-menu-item--active').forEach(el=>{el!==item&&el.classList.remove('sf-menu-item--active');});
     item.classList.add('sf-menu-item--active');
   };
   const closeMenu=()=>{
     isOpen=false;
-    header.classList.remove('sf-mega-active');
+    header.classList.remove('mega-open','sf-mega-active');
     item.classList.remove('sf-menu-item--active');
   };
 
@@ -10311,28 +10314,27 @@ initTheme();
     isOpen?closeMenu():openMenu();
   });
 
-  // Close when mouse leaves both trigger and panel
-  const handleLeave=e=>{
-    const rel=e.relatedTarget;
-    if(!trigger.contains(rel)&&!(panel&&panel.contains(rel))){
-      closeMenu();
-    }
+  // Debounced close when mouse leaves both trigger and panel
+  const startClose=()=>{
+    closeTimer=setTimeout(()=>{
+      if(!trigger.matches(':hover')&&!(panel&&panel.matches(':hover'))){
+        closeMenu();
+      }
+    },120);
   };
-  trigger.addEventListener('mouseleave',handleLeave);
-  panel&&panel.addEventListener('mouseleave',handleLeave);
+  const cancelClose=()=>clearTimeout(closeTimer);
+  [trigger,panel].forEach(el=>{el&&el.addEventListener('mouseenter',cancelClose);});
+  [trigger,panel].forEach(el=>{el&&el.addEventListener('mouseleave',startClose);});
 
-  // Accessibility: close on Escape key
-  document.addEventListener('keydown',e=>{
-    if(e.key==='Escape'&&isOpen) closeMenu();
+  // Close when clicking outside trigger or panel
+  document.addEventListener('pointerdown',e=>{
+    if(!isOpen) return;
+    if(trigger.contains(e.target)) return;
+    if(panel&&panel.contains(e.target)) return;
+    closeMenu();
   });
 
-  // Close if focus leaves both trigger and panel
-  const handleFocusOut=e=>{
-    const rel=e.relatedTarget;
-    if(!trigger.contains(rel)&&!(panel&&panel.contains(rel))){
-      closeMenu();
-    }
-  };
-  trigger.addEventListener('focusout',handleFocusOut);
-  panel&&panel.addEventListener('focusout',handleFocusOut);
+  // Close on Escape key or when leaving desktop breakpoint
+  document.addEventListener('keydown',e=>{if(e.key==='Escape')closeMenu();});
+  mql.addEventListener('change',e=>{if(!e.matches)closeMenu();});
 })();
