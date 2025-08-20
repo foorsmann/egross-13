@@ -10279,14 +10279,21 @@ initTheme();
   document.addEventListener('DOMContentLoaded',setMegaMaxHeight);
   li.addEventListener('focusin',e=>{
     if(!mql.matches) return;
-    if(!li.classList.contains('sf-menu-item--active')) e.stopImmediatePropagation();
+    if(!li.classList.contains('sf-menu-item--active')){
+      e.stopPropagation();
+      e.stopImmediatePropagation();
+    }
     setMegaMaxHeight();
   },true);
 
-  li.addEventListener('mouseenter',e=>{
+  function blockHover(e){
     if(!mql.matches) return;
-    if(!li.classList.contains('sf-menu-item--active')) e.stopImmediatePropagation();
-  },true);
+    if(!li.classList.contains('sf-menu-item--active')&&li.contains(e.target)){
+      e.stopPropagation();
+      e.stopImmediatePropagation();
+    }
+  }
+  document.addEventListener('mouseenter',blockHover,true);
 
   li.addEventListener('mouseleave',()=>{if(!mql.matches) return;close();});
 
