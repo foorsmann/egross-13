@@ -66,7 +66,7 @@
         "description": "<p>Daca ai nevoie de ajutor nu ezita sa ne contactezi oricand</p>",
         "show_name": true,
         "show_phone": true,
-        "show_signup_email": true
+        "show_signup_email": false
       }
     },
     "maps": {
