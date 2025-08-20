@@ -3361,6 +3361,9 @@ class SiteNav {
 
     _defineProperty(this, "attachEvents", () => {
       this.domNodes.menuItems.forEach((menuItem, index) => {
+        // Skip default hover handlers for the "Categorii" mega menu; it will be
+        // controlled via custom click logic elsewhere.
+        if (menuItem.matches('.sf-menu-item-parent[data-mega="categorii"]')) return;
         menuItem.addEventListener('mouseenter', evt => this.onMenuItemEnter(evt, index));
         menuItem.addEventListener('mouseleave', evt => this.onMenuItemLeave(evt, index));
       });
@@ -10321,6 +10324,13 @@ initTheme();
   const cancelClose=()=>clearTimeout(closeTimer);
   [trigger,panel].forEach(el=>{el&&el.addEventListener('mouseenter',cancelClose);});
   [trigger,panel].forEach(el=>{el&&el.addEventListener('mouseleave',startClose);});
+
+  // Close if trigger loses focus and the new focus is outside the panel
+  trigger.addEventListener('focusout',e=>{
+    if(!panel||!panel.contains(e.relatedTarget)){
+      closeMenu();
+    }
+  });
 
   // Close on Escape key or when leaving desktop breakpoint
   document.addEventListener('keydown',e=>{if(e.key==='Escape')closeMenu();});

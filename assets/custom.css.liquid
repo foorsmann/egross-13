@@ -209,7 +209,8 @@
     flex-shrink: 0;
     min-width: var(--search-min, 260px);
     position: relative;
-    z-index: 1001;
+    /* Ensure search bar stays above mega menu */
+    z-index: 1100;
   }
   .sf-header.mega-open {
     overflow: visible;
