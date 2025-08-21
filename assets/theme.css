@@ -25,9 +25,20 @@
   }
   .sf-header .sf-menu-item-parent[data-mega="categorii"] .sf-menu-submenu__items{
     display:grid;
-    grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
-    gap:1.5rem;
+    --grid-gap:0;
+    grid-template-columns:repeat(auto-fill,minmax(calc(25% - var(--grid-gap)/4),1fr));
+    gap:var(--grid-gap);
     margin:0;
+  }
+  @media (min-width:640px){
+    .sf-header .sf-menu-item-parent[data-mega="categorii"] .sf-menu-submenu__items{
+      --grid-gap:0.5rem;
+    }
+  }
+  @media (min-width:1024px){
+    .sf-header .sf-menu-item-parent[data-mega="categorii"] .sf-menu-submenu__items{
+      --grid-gap:1rem;
+    }
   }
   .sf-header .sf-menu-item-parent[data-mega="categorii"] .sf-menu-submenu__items>li{
     width:auto;
