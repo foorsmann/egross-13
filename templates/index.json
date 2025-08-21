@@ -93,7 +93,7 @@
       "settings": {
         "container": "w-full",
         "slideshow_height": "fullscreen",
-        "show_overlay": true,
+        "show_overlay": false,
         "dots_position": "right",
         "dots_color": "dark",
         "show_dots": true,
