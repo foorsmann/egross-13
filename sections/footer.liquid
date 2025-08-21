@@ -14,7 +14,37 @@
     background-image: var(--arrow-down-white-url);
   }
 </style>
-
+{% comment %}Footer links — force white underline on hover{% endcomment %}
+<style>
+  .sf-footer .sf__footer-block-content a {
+    color: var(--color-footer-text, #fff);
+    text-decoration: none;
+  }
+  .sf-footer .sf__footer-block-content a:hover {
+    color: var(--color-footer-text, #fff);
+    text-decoration: underline;
+    text-decoration-color: currentColor;
+    text-underline-offset: 3px;
+    text-decoration-thickness: 1px;
+  }
+  .sf-footer .sf__footer-block-content .hover-underline a::after {
+    content: none !important;
+  }
+  .sf-footer .sf__footer-block-content .hover-underline:hover > a {
+    color: var(--color-footer-text, #fff);
+  }
+  .sf-footer .sf__footer-block-content a,
+  .sf-footer .sf__footer-block-content a:hover {
+    background-image: none !important;
+    border-bottom: 0 !important;
+  }
+  .sf-footer .sf__footer-block-content li:hover {
+    border-bottom-color: var(--color-border);
+  }
+  .sf-footer .sf__footer-block-content a:hover[class*="hover:text-"] {
+    color: var(--color-footer-text, #fff) !important;
+  }
+</style>
 {% schema %}
 {
   "name": "Footer",
