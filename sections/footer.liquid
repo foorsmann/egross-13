@@ -3,6 +3,18 @@
   {% render 'footer-design', container: section.settings.container %}
 </footer>
 
+{% comment %}Arrows in footer — force white icon only in footer{% endcomment %}
+<style>
+  /* Scope strict la footer — nu afectează alte acordeoane */
+  .sf-footer {
+    --arrow-down-url: var(--arrow-down-white-url);
+  }
+
+  .sf-footer .sf__accordion-item .sf__accordion-button::after {
+    background-image: var(--arrow-down-white-url);
+  }
+</style>
+
 {% schema %}
 {
   "name": "Footer",
