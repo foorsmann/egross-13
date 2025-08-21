@@ -703,7 +703,7 @@
       "type": "newsletter",
       "settings": {
         "container": "container",
-        "background_color": "#fffafa",
+        "background_color": "#ffffff",
         "form_layout": "vertical",
         "form_design": "1",
         "heading": "Adauga adresa de email si te vom contacta<br> cand avem promotii sau cand adaugam produse noi",
