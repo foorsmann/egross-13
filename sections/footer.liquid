@@ -14,7 +14,53 @@
     background-image: var(--arrow-down-white-url);
   }
 </style>
+{% comment %}Footer links — keep only a short white underline under text on hover{% endcomment %}
+<style>
+  /* Bază: linkurile din footer rămân albe, fără underline implicit */
+  .sf-footer .sf__footer-block-content a {
+    color: var(--color-footer-text, #fff);
+    text-decoration: none;
+  }
 
+  /* Hover: underline nativ, alb, doar sub text */
+  .sf-footer .sf__footer-block-content a:hover {
+    color: var(--color-footer-text, #fff);
+    text-decoration: underline;
+    text-decoration-color: currentColor;
+    text-underline-offset: 3px;
+    text-decoration-thickness: 1px;
+  }
+
+  /* Elimină pseudo-elementul și orice underline pe background/border (evită linia neagră) */
+  .sf-footer .sf__footer-block-content .hover-underline a::after {
+    content: none !important;
+    background: none !important;
+    width: 0 !important;
+    height: 0 !important;
+  }
+
+  /* Nu lăsa li:hover să schimbe culoarea textului */
+  .sf-footer .sf__footer-block-content .hover-underline:hover > a {
+    color: var(--color-footer-text, #fff);
+  }
+
+  /* Neutralizează implementările alternative de underline pe linkuri */
+  .sf-footer .sf__footer-block-content a,
+  .sf-footer .sf__footer-block-content a:hover {
+    background-image: none !important;
+    border-bottom: 0 !important;
+  }
+
+  /* IMPORTANT: separatorul <li> își păstrează culoarea implicită */
+  .sf-footer .sf__footer-block-content li:hover {
+    border-bottom-color: var(--color-border);
+  }
+
+  /* Neutralizează utilitare hover:text-* care pot altera culoarea */
+  .sf-footer .sf__footer-block-content a:hover[class*="hover:text-"] {
+    color: var(--color-footer-text, #fff) !important;
+  }
+</style>
 {% schema %}
 {
   "name": "Footer",
