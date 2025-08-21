@@ -1,7 +1,20 @@
 {%- assign st = section.settings -%}
+{%- assign spacing_class = '' -%}
+{%- case st.spacing_bottom -%}
+  {%- when '1' -%}
+    {%- assign spacing_class = 'mb-4' -%}
+  {%- when '2' -%}
+    {%- assign spacing_class = 'mb-8' -%}
+  {%- when '3' -%}
+    {%- assign spacing_class = 'mb-12' -%}
+  {%- when '4' -%}
+    {%- assign spacing_class = 'mb-16' -%}
+  {%- when '6' -%}
+    {%- assign spacing_class = 'mb-24' -%}
+{%- endcase -%}
 {% if section.blocks.size > 0 %}
     <section
-        class="sf-collapsible{% if template == 'product' %} sf-product__section{% endif %}"
+        class="sf-collapsible{% if template == 'product' %} sf-product__section{% endif %}{% if spacing_class != blank %} {{ spacing_class }}{% endif %}"
         data-section-type="sf-collapsible" data-section-id="{{ section.id }}"
     >
       <div class="{{ st.container }}">
@@ -57,6 +70,38 @@
         {
           "value": "container-narrow",
           "label": "Narrow width"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "spacing_bottom",
+      "label": "Spacing bottom",
+      "default": "3",
+      "options": [
+        {
+          "value": "0",
+          "label": "0"
+        },
+        {
+          "value": "1",
+          "label": "1 rem"
+        },
+        {
+          "value": "2",
+          "label": "2 rem"
+        },
+        {
+          "value": "3",
+          "label": "3 rem"
+        },
+        {
+          "value": "4",
+          "label": "4 rem"
+        },
+        {
+          "value": "6",
+          "label": "6 rem"
         }
       ]
     }
