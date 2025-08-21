@@ -50,46 +50,6 @@
   }
 </style>
 
-{% comment %}Footer — neutralizeaza pseudo-underline-ul negru al .hover-underline si pastreaza doar underline alb nativ{% endcomment %}
-<style>
-  /* 1) Dezactiveaza pseudo-elementul care deseneaza linia neagra pe toata latimea */
-  .sf-footer .sf__footer-block-content .hover-underline a::after {
-    /* anulam complet "fake underline"-ul */
-    content: none !important;
-    background: none !important;
-    width: 0 !important;
-    height: 0 !important;
-  }
-
-  /* 2) Impiedica .hover-underline sa intoarca textul pe negru cand e hovered LI-ul */
-  .sf-footer .sf__footer-block-content .hover-underline:hover > a {
-    color: var(--color-footer-text, #fff) !important;
-    text-decoration-color: currentColor;
-  }
-
-  /* 3) Logica underline-ului ramane nativ, scurt, sub text (alb) */
-  .sf-footer .sf__footer-block-content a {
-    color: var(--color-footer-text, #fff);
-    text-decoration: none;
-  }
-  .sf-footer .sf__footer-block-content a:hover {
-    color: var(--color-footer-text, #fff);
-    text-decoration: underline;
-    text-decoration-color: currentColor;
-    text-underline-offset: 3px;
-    text-decoration-thickness: 1px;
-  }
-
-  /* 4) Pastram separatorul LI neschimbat la hover */
-  .sf-footer .sf__footer-block-content li:hover {
-    border-bottom-color: var(--color-border);
-  }
-
-  /* 5) Neutralizeaza utilitare globale gen hover:text-black pe linkuri din footer */
-  .sf-footer .sf__footer-block-content a:hover[class*="hover:text-"] {
-    color: var(--color-footer-text, #fff) !important;
-  }
-</style>
 {% schema %}
 {
   "name": "Footer",
@@ -701,3 +661,4 @@
   ]
 }
 {% endschema %}
+
