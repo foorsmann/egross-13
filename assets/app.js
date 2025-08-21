@@ -2895,6 +2895,13 @@ function initScrollTop() {
 
   if (scrollTopButton) {
     scrollTopButton.addEventListener('click', scrollToTop);
+    scrollTopButton.addEventListener('click', function (e) {
+      if (typeof e.detail === 'number' && e.detail > 0) {
+        scrollTopButton.blur();
+      }
+    }, {
+      passive: true
+    });
     window.addEventListener('scroll', function () {
       const method = window.scrollY > 100 ? 'add' : 'remove';
       scrollTopButton.classList[method]('opacity-100');
