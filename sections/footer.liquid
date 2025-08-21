@@ -15,6 +15,40 @@
   }
 </style>
 
+{% comment %}Footer links — force white underline on hover{% endcomment %}
+<style>
+  /* Bază: culoare link în footer urmează culoarea de text din footer */
+  .sf-footer .sf__footer-block-content a,
+  .sf-footer .sf__footer-block-content .hover-underline {
+    color: var(--color-footer-text, #fff);
+    text-decoration-thickness: from-font;
+    text-underline-offset: 2px;
+  }
+
+  /* Hover: underline alb (și textul rămâne alb) — pentru underline nativ */
+  .sf-footer .sf__footer-block-content a:hover,
+  .sf-footer .sf__footer-block-content .hover-underline:hover {
+    color: var(--color-footer-text, #fff);
+    text-decoration: underline;
+    text-decoration-color: var(--color-footer-text, #fff);
+    -webkit-text-decoration-color: var(--color-footer-text, #fff);
+  }
+
+  /* Dacă tema folosește underline din background/border pe .hover-underline, forțăm să urmeze currentColor (alb aici) */
+  .sf-footer .sf__footer-block-content .hover-underline:hover {
+    background-image: linear-gradient(currentColor, currentColor);
+    background-size: 100% 1px;
+    background-position: 0 100%;
+    background-repeat: no-repeat;
+    border-bottom-color: currentColor;
+  }
+
+  /* Override local pentru utilitare tip "hover:text-black" care apar în markup-ul footerului */
+  .sf-footer .sf__footer-block-content a:hover[class*="hover:text-"] {
+    color: var(--color-footer-text, #fff) !important;
+  }
+</style>
+
 {% schema %}
 {
   "name": "Footer",
